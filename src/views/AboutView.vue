@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import { reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
 export default {
   name: "AboutView",
   props: {
@@ -15,7 +15,7 @@ export default {
     },
   },
   setup(props, context) {
-    var state = reactive({
+    var state = ref({
       message: props.msg,
       title: "about",
     });
@@ -24,8 +24,11 @@ export default {
       context.emit("getMsg", state.title);
     }
     function test() {
-      state.message += 10;
+      state.value.message += 10;
     }
+    watch(state.value,(newValue,oldValue) => {
+      console.log(newValue,oldValue)
+    })
     return {
       changeMsg,
       test,
