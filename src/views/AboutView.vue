@@ -1,8 +1,8 @@
 <template>
   <div class="about">
     <h1>{{ state.message }}</h1>
-    <button @click="changeMsg">点击</button>
-    <button @click="test">点击+10</button>
+    <el-button type="primary" @click="changeMsg">点击</el-button>
+    <el-button type="danger" @click="test">点击 + 10</el-button>
   </div>
 </template>
 <script>
@@ -15,7 +15,7 @@ export default {
     },
   },
   setup(props, context) {
-    var state = ref({
+    var state = reactive({
       message: props.msg,
       title: "about",
     });
@@ -24,9 +24,9 @@ export default {
       context.emit("getMsg", state.title);
     }
     function test() {
-      state.value.message += 10;
+      state.message += 10;
     }
-    watch(state.value,(newValue,oldValue) => {
+    watch(state,(newValue,oldValue) => {
       console.log(newValue,oldValue)
     })
     return {
